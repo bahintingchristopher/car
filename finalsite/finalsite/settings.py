@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 
+
+import os
+
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = ['your-render-app.onrender.com'] if not DEBUG else ['127.0.0.1', 'localhost']
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,17 +31,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_y58)s&o(+jmxp_+zsd-x2!@$n7&49@54zkr7r7v23t8&88tj('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# # ALLOWED_HOSTS = []
+
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = ['car-store-sfnj.onrender.com'] if not DEBUG else ['127.0.0.1', 'localhost']
+
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'car',
-    'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.admin', #this to connect admin py
+    'django.contrib.auth', #this is to connect admin py
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -116,7 +128,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #this is for production and deployment
+#run this code so that the website not break: python manage.py collectstatic
+
 
 # Media files (Uploaded images)
 MEDIA_URL = '/media/'

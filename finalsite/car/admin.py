@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car
+from .models import Car # this to connect the admin py
 
 class CarAdmin(admin.ModelAdmin):
     # What fields to show in the list view (the main table)
