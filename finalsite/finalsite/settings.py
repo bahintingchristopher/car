@@ -36,8 +36,13 @@ SECRET_KEY = 'django-insecure-_y58)s&o(+jmxp_+zsd-x2!@$n7&49@54zkr7r7v23t8&88tj(
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # # ALLOWED_HOSTS = []
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['car-store-sfnj.onrender.com'] if not DEBUG else ['127.0.0.1', 'localhost']
+# DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# ALLOWED_HOSTS = ['car-store-sfnj.onrender.com'] if not DEBUG else ['127.0.0.1', 'localhost']
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
+
 
 
 
