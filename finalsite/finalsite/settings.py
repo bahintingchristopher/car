@@ -14,10 +14,6 @@ import os
 from pathlib import Path
 
 
-import os
-
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['your-render-app.onrender.com'] if not DEBUG else ['127.0.0.1', 'localhost']
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
