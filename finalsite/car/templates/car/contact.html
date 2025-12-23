@@ -1,0 +1,224 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="author" content="Christopher T. Bahinting"> 
+    <meta name="description" content="WDD 231 - Bahins Car Sales as Final Project by  Christopher T. Bahinting.">
+    <title> Contact Us page of Final Project</title>
+
+    <meta property="og:title" content="Bahins Car Sales">
+    <meta property="og:description" content="Your trusted partner for quality vehicles and exceptional service.">
+    <meta property="og:image" content="https://bahintingchristopher.github.io/wdd231/finalproject/images/final_project_logo.svg">  
+    <meta property="og:url" content="https://bahintingchristopher.github.io/wdd231/finalproject/index.html">
+    <meta property="og:type" content="website">
+
+     <!-- <link rel="icon" href="images/finalproject_favicon.ico"> -->
+      <link rel="icon" href="{% static 'car/images/finalproject_favicon.ico' %}">
+  
+    
+
+    <!-- <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/final_base.css">
+     <link rel="stylesheet" href="styles/final_medium.css"> -->
+
+     <!-- CSS -->
+<link rel="stylesheet" href="{% static 'car/styles/final_base.css' %}">
+<link rel="stylesheet" href="{% static 'car/styles/final_medium.css' %}">
+<link rel="stylesheet" href="{% static 'car/styles/normalize.css' %}">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Caramel&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+
+    <script src="{% static 'car/scripts/header_footer.js' %}" defer></script>
+    <script src="{% static 'car/scripts/form_storage.js' %}" defer></script>
+
+</head>
+
+<body>
+ <div class="menu-container">
+    <header>
+        <div class="left-section">
+            <img src="{% static 'car/images/final_project_logo.svg' %}" alt="Site Logo" width="60">
+            <span class="site-title">Bahins Car Sales</span>
+        </div>
+
+        <!-- <nav id="nav-bar" class="navigation">
+            <ul>
+          <li ><a href="index.html">HOME</a></li>
+          <li  ><a href="inventory.html">INVENTORY</a></li>
+          <li class="active-page"><a href="contact.html">CONTACT US</a></li>
+            </ul>
+        </nav> -->
+
+        <nav id="nav-bar" class="navigation">
+    <ul>
+        <li >
+            <a href="{% url 'home' %}">HOME</a>
+        </li>
+        <li>
+            <a href="{% url 'inventory' %}">INVENTORY</a>
+        </li>
+        <li class="active-page">
+            <a href="{% url 'contact' %}">CONTACT US</a>
+        </li>
+    </ul>
+</nav>
+
+        <button id="ham-btn" class="hamburger" aria-label="Open menu"></button>
+    </header>
+</div>
+
+
+<main>
+
+  <div class="inventory-folder">
+    
+    <!-- Test Drive Form -->
+    <div class="test-drive-form-container">
+      <!-- <form class="test-drive-form" method="get" action="thankyou.html"> -->
+      <form action="{% url 'thankyou' %}" method="get">
+      {% csrf_token %}
+
+        <h1>Schedule a Test Drive</h1>
+
+        <!-- Customer Info -->
+        <label>
+            Full Name:
+            <input type="text" name="fullName" required placeholder="Your Full Name" autocomplete="name">
+        </label>
+ 
+
+        <label>
+            Contact Number:
+            <input type="tel" name="phone" required placeholder="09123456789" pattern="[0-9]{10,11}" autocomplete="tel">
+        </label>
+
+        <label>
+            Email Address:
+            <input type="email" name="email" required placeholder="you@example.com" autocomplete="email">
+        </label>
+
+        <!-- Driver Info -->
+        <label>
+            Driver's License Number:
+            <input type="text" name="licenseNumber" required placeholder="Driver License No.">
+        </label>
+
+        <label>
+            License Expiry Date:
+            <input type="date" name="licenseExpiry" required>
+        </label>
+
+        <label>
+            Driving Experience (Years):
+            <input type="text" name="experience" required placeholder="e.g., 5">
+        </label>
+
+        <!-- Vehicle Info -->
+        <label>
+            Vehicle Model Requested:
+            <input type="text" name="vehicleModel" required placeholder="Car Model">
+        </label>
+
+        <label>
+            Preferred Date:
+            <input type="date" name="testDriveDate" required>
+        </label>
+
+        <label>
+            Preferred Time:
+            <input type="time" name="testDriveTime" required>
+        </label>
+
+        
+        <label>
+            Special Requests / Notes:
+            <textarea name="notes" placeholder="Optional notes or requests"></textarea>
+        </label>
+
+        <!-- Submit Button -->
+        <button id="inventory-button" type="submit">Book Test Drive</button>
+      </form>
+    </div>
+
+    <div class="contact-right">
+        <div class="promo-folder">
+        <h2>Ber-Month promo:</h2>
+        <p> Get 20% off on all units! Valid until December 31, 2025</p>
+    </div>
+
+    <div class="map-folder">
+    <h2>Our Location:</h2>
+   <iframe class="map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.462011411112!2d124.55768827355813!3d11.178417651653255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3307ff61a02291a9%3A0x9554cff6a7d370fa!2sThe%20Church%20of%20Jesus%20Christ%20of%20Latter-day%20Saints!5e1!3m2!1sen!2sph!4v1764598675980!5m2!1sen!2sph"
+        loading="lazy" >
+    </iframe>
+
+</div>
+
+</div>
+  </div>
+
+</main>
+   
+      <footer>
+       
+
+        <!-- <div class="social">
+             <a href="https://github.com/bahintingchristopher/wdd231"  target="_blank"><img src="images/github.svg" alt="github"   width="16"  height="16"></a>
+            <a href="www.linkedin.com/in/cbahinting"  target="_blank"><img src="images/linkedin.svg" alt="linkedin"   width="16"  height="16"></a>
+            <a href="https://www.facebook.com/profile.php?id=61579616556378"  target="_blank"><img src="images/facebook.svg" alt="facebook"   width="16"  height="16"></a>
+            <a href="https://x.com/"  target="_blank"><img src="images/twitter-x.svg" alt="twitter-x" width="16"  height="16"></a>
+        </div> -->
+        <div class="social">
+  <a href="https://github.com/bahintingchristopher/wdd231" target="_blank">
+    <img src="{% static 'car/images/github.svg' %}" alt="github" width="16" height="16">
+  </a>
+
+  <a href="https://www.linkedin.com/in/cbahinting" target="_blank">
+    <img src="{% static 'car/images/linkedin.svg' %}" alt="linkedin" width="16" height="16">
+  </a>
+
+  <a href="https://www.facebook.com/profile.php?id=61579616556378" target="_blank">
+    <img src="{% static 'car/images/facebook.svg' %}" alt="facebook" width="16" height="16">
+  </a>
+
+  <a href="https://x.com/" target="_blank">
+    <img src="{% static 'car/images/twitter-x.svg' %}" alt="twitter-x" width="16" height="16">
+  </a>
+</div>
+
+        <div class="author">
+        <h2>WDD231 Class Project</h2>
+        <p> Christopher T. Bahinting <br>
+        &copy; <span id="currentYear"></span>  | Philippines
+        </p>
+        <p id="lastModified"></p>
+                <!-- image "Attributions -->
+        <div class="attributions">
+          <h2>DISCLAIMER</h2>
+       <p>All images used in this project were found online. I do not own any of these images and they are used solely for educational purposes.</p>
+       <p>Credit to the original creators where known. This project is for learning and demonstration only.</p>
+    </div>
+    </div>
+          <div class="youtube">
+          <h2>VIDEO RECORDINGS</h2>
+          <ul>
+            <li>
+                
+              <a href="https://youtu.be/9pxyztivPUM">Video Recording for Final Project</a>
+           
+          </li>
+          </ul>
+        </div>  
+    </footer>
+
+</body>
+</html>

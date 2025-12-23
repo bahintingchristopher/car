@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="author" content="Christopher T. Bahinting"> 
+    <meta name="description" content="WDD 231 - Bahins Car Sales as Final Project by  Christopher T. Bahinting.">
+    <title> Thank you page of Final Project</title>
+
+    <meta property="og:title" content="Bahins Car Sales">
+    <meta property="og:description" content="Your trusted partner for quality vehicles and exceptional service.">
+    <meta property="og:image" content="https://bahintingchristopher.github.io/wdd231/finalproject/images/final_project_logo.svg">  
+    <meta property="og:url" content="https://bahintingchristopher.github.io/wdd231/finalproject/index.html">
+    <meta property="og:type" content="website">
+
+     <!-- <link rel="icon" href="images/finalproject_favicon.ico">
+   -->
+     <link rel="icon" href="{% static 'car/images/finalproject_favicon.ico' %}">
+    
+
+    <link rel="stylesheet" href="{% static 'car/styles/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'car/styles/final_base.css' %}">
+     <link rel="stylesheet" href="{% static 'car/styles/final_medium.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Caramel&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+    <script src="{% static 'car/scripts/header_footer.js' %}" defer></script>
+    <script src="{% static 'car/scripts/thankyou.js' %}" defer></script>
+    <script src="{% static 'car/scripts/date_time.js' %}" defer></script>
+
+
+</head>
+
+<body>
+ <div class="menu-container">
+    <header>
+        <div class="left-section">
+            <img src="{% static 'car/images/final_project_logo.svg' %}" alt="Site Logo" width="60">
+            <span class="site-title">Bahins Car Sales</span>
+        </div>
+
+        <!-- <nav id="nav-bar" class="navigation">
+            <ul>
+          <li ><a href="index.html">HOME</a></li>
+          <li  ><a href="inventory.html">INVENTORY</a></li>
+          <li class="active-page"><a href="contact.html">CONTACT US</a></li>
+            </ul>
+        </nav> -->
+
+        <nav id="nav-bar" class="navigation">
+    <ul>
+        <li>
+            <a href="{% url 'home' %}">HOME</a>
+        </li>
+        <li>
+            <a href="{% url 'inventory' %}">INVENTORY</a>
+        </li>
+        <li>
+            <a href="{% url 'contact' %}">CONTACT US</a>
+        </li>
+    </ul>
+</nav>
+
+        <button id="ham-btn" class="hamburger" aria-label="Open menu"></button>
+    </header>
+</div>
+
+
+<main>
+
+    <div class="thankyou-folder">
+        <div class="left-thankyou">
+                <h1>Booking Confirmation!</h1>
+
+                <!-- reference to the thankyou.js -->
+              <div id="results">
+            <h2>These are the details from your submission:</h2>
+            <p><strong>Full Name:</strong> {{ fullName }}</p>
+            <p><strong>Phone:</strong> {{ phone }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <p><strong>License Number:</strong> {{ licenseNumber }}</p>
+            <p><strong>License Expiry:</strong> {{ licenseExpiry }}</p>
+            <p><strong>Experience:</strong> {{ experience }}</p>
+            <p><strong>Vehicle Model:</strong> {{ vehicleModel }}</p>
+            <p><strong>Date:</strong> {{ testDriveDate }}</p>
+            <p><strong>Time:</strong> {{ testDriveTime }}</p>
+            <p><strong>Notes:</strong> {{ notes }}</p>
+        </div>
+    </div>
+   <div class="right-thankyou">
+
+    <p><strong>We have received your submission:</strong></p>
+    
+    <p>Date: <strong><span id="current-date"></span></strong></p>
+    <p>Time: <strong><span id="current-time"></span></strong></p>
+    
+    <p><em>Thank you for booking a test drive! Our team will contact you shortly to confirm your appointment.</em></p>
+    
+    <div class="car-wrapper">
+        <img src="{% static 'car/images/ford_mustang.webp' %}" alt="ending image" class="ending-image" loading="lazy">
+        <div class="headlight"></div>
+    </div>
+    </div>
+
+
+    </div>
+
+</main>
+
+
+      <footer>
+       
+
+        <div class="social">
+             <a href="https://github.com/bahintingchristopher/wdd231"  target="_blank"><img src="{% static 'car/images/github.svg' %}" alt="github"   width="16"  height="16"></a>
+            <a href="www.linkedin.com/in/cbahinting"  target="_blank"><img src="{% static 'car/images/linkedin.svg' %}" alt="linkedin"   width="16"  height="16"></a>
+            <a href="https://www.facebook.com/profile.php?id=61579616556378"  target="_blank"><img src="{% static 'car/images/facebook.svg' %}" alt="facebook"   width="16"  height="16"></a>
+            <a href="https://x.com/"  target="_blank"><img src="{% static 'car/images/twitter-x.svg' %}" alt="twitter-x" width="16"  height="16"></a>
+        </div>
+
+        <div class="author">
+        <h2>WDD231 Class Project</h2>
+        <p> Christopher T. Bahinting <br>
+        &copy; <span id="currentYear"></span>  | Philippines
+        </p>
+        <p id="lastModified"></p>
+                <!-- image "Attributions -->
+       <div class="attributions">
+          <h2>DISCLAIMER</h2>
+       <p>All images used in this project were found online. I do not own any of these images and they are used solely for educational purposes.</p>
+       <p>Credit to the original creators where known. This project is for learning and demonstration only.</p>
+    </div>
+    </div>
+    
+    </footer>
+   
+</body>
+</html>

@@ -1,0 +1,179 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="author" content="Christopher T. Bahinting"> 
+    <meta name="description" content="WDD 231 - Bahins Car Sales as Final Project by  Christopher T. Bahinting.">
+    <title> Home page of Final Project</title>
+
+    <meta property="og:title" content="Bahins Car Sales">
+    <meta property="og:description" content="Your trusted partner for quality vehicles and exceptional service.">
+    <meta property="og:image" content="https://bahintingchristopher.github.io/wdd231/finalproject/images/final_project_logo.svg">  
+    <meta property="og:url" content="https://bahintingchristopher.github.io/wdd231/finalproject/index.html">
+    <meta property="og:type" content="website">
+
+     <!-- <link rel="icon" href="images/finalproject_favicon.ico"> -->
+      <link rel="icon" href="{% static 'car/images/finalproject_favicon.ico' %}">
+  
+    
+
+   <!-- CSS -->
+<link rel="stylesheet" href="{% static 'car/styles/final_base.css' %}">
+<link rel="stylesheet" href="{% static 'car/styles/final_medium.css' %}">
+<link rel="stylesheet" href="{% static 'car/styles/normalize.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Caramel&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+
+    <script src="{% static 'car/scripts/header_footer.js' %}" defer></script>
+    <script src="{% static 'car/scripts/final.js' %}" defer></script>
+
+</head>
+
+<body>
+ <div class="menu-container">
+    <header>
+        <div class="left-section">
+            <img src="{% static 'car/images/final_project_logo.svg' %}" alt="Site Logo">
+            <span class="site-title">Bahins Car Sales</span>
+        </div>
+
+        <nav id="nav-bar" class="navigation">
+    <ul>
+        <li class="active-page">
+            <a href="{% url 'home' %}">HOME</a>
+        </li>
+        <li>
+            <a href="{% url 'inventory' %}">INVENTORY</a>
+        </li>
+        <li>
+            <a href="{% url 'contact' %}">CONTACT US</a>
+        </li>
+    </ul>
+</nav>
+
+        <button id="ham-btn" class="hamburger" aria-label="Open menu"></button>
+    </header>
+</div>
+
+
+<main>
+ <div class="hero-box">
+    <img src="{% static 'car/images/hero_image.webp' %}" alt="Excited buyer" class="hero-image" loading="lazy">
+    <div class="cta">
+        <h1>Find Your Dream Car Today!</h1>
+        <p>Explore our premium selection and experience the ride of your life.</p>
+        <div class="hero-buttons">
+            <a href="{% url 'contact' %}" class="btn primary-btn">
+                <strong>Schedule a Test Drive</strong>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="featured-cars">
+    <h2>HOT PICKS OF THE WEEK</h2>
+
+    <div id="cars-container" class="grid">
+      
+ 
+    </div>
+</div> -->
+
+<div class="featured-cars">
+    <h2>HOT PICKS OF THE WEEK</h2>
+
+    <div id="cars-container" class="grid">
+        {% for car in hot_picks %}
+            <div class="car-card">
+                <img src="{{ car.image.url }}" alt="{{ car.make }} {{ car.model }}" class="car-img">
+                
+                <div class="random_cars">
+                    <h3>Make: {{ car.make }} </h3>
+                    <p>Mode: {{ car.model }}</p>
+                    <p class="year">Year: {{ car.year }}</p>
+                    <p class="price">Price: ${{ car.price }}</p>
+                    <p class="mileage">Distance Traveled: {{ car.mileage }} miles</p>
+                    <a href="{% url 'inventory' %}" class="btn-details">More Cars</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<section class="about-us">
+  <div class="about-content">
+    <h2>About Us</h2>
+    <p>
+      Welcome to <strong>Bahins Car Sales</strong>! We are passionate about providing high-quality vehicles that meet your needs and exceed your expectations. With years of experience in the automotive industry, our team is dedicated to helping you find the perfect car at the right price.
+    </p>
+    <p>
+      Our mission is to make car buying simple, transparent, and enjoyable. Whether you're searching for your first car, upgrading to something new, or looking for a reliable used vehicle, we are here to guide you every step of the way.
+    </p>
+    <p>
+      At <strong>Bahins Car Sales</strong>, we value integrity, customer satisfaction, and excellence. We believe in building lasting relationships with our customers based on trust and reliability.
+    </p>
+    <p>
+      Thank you for choosing us as your automotive partner. We look forward to helping you hit the road in your dream car!
+    </p>
+  </div>
+
+  <div class="inventory-cta">
+    <p>Ready to find your next car? Browse our extensive inventory of quality vehicles today!</p>
+    <a href="{%url 'inventory' %}" class="btn secondary-btn">FIND YOU CAR TODAY</a>
+
+  </div>
+</section>
+
+
+</main>
+
+   
+      <footer>
+       
+
+   
+        <div class="social">
+  <a href="https://github.com/bahintingchristopher/wdd231" target="_blank">
+    <img src="{% static 'car/images/github.svg' %}" alt="github" width="16" height="16">
+  </a>
+
+  <a href="https://www.linkedin.com/in/cbahinting" target="_blank">
+    <img src="{% static 'car/images/linkedin.svg' %}" alt="linkedin" width="16" height="16">
+  </a>
+
+  <a href="https://www.facebook.com/profile.php?id=61579616556378" target="_blank">
+    <img src="{% static 'car/images/facebook.svg' %}" alt="facebook" width="16" height="16">
+  </a>
+
+  <a href="https://x.com/" target="_blank">
+    <img src="{% static 'car/images/twitter-x.svg' %}" alt="twitter-x" width="16" height="16">
+  </a>
+</div>
+
+        <div class="author">
+        <h2>WDD231 Class Project</h2>
+        <p> Christopher T. Bahinting <br>
+        &copy; <span id="currentYear"></span>  | Philippines
+        </p>
+        <p id="lastModified"></p>
+        <!-- image "Attributions -->
+         <div class="attributions">
+          <h2>DISCLAIMER</h2>
+       <p>All images used in this project were found online. I do not own any of these images and they are used solely for educational purposes.</p>
+       <p>Credit to the original creators where known. This project is for learning and demonstration only.</p>
+    </div>
+    </div>
+           
+       
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+    {% load static %}
+    
+
+    <!DOCTYPE html>
+    <html lang="en-US">
+        
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Christopher T. Bahinting"> 
+        <meta name="description" content="WDD 231 - Bahins Car Sales as Final Project by  Christopher T. Bahinting.">
+        <title> Inventory page of Final Project</title>
+
+        <meta property="og:title" content="Bahins Car Sales">
+        <meta property="og:description" content="Your trusted partner for quality vehicles and exceptional service.">
+        <meta property="og:image" content="https://bahintingchristopher.github.io/wdd231/finalproject/images/final_project_logo.svg">  
+        <meta property="og:url" content="https://bahintingchristopher.github.io/wdd231/finalproject/index.html">
+        <meta property="og:type" content="website">
+
+        <!-- <link rel="icon" href="images/finalproject_favicon.ico">
+    -->
+    <link rel="icon" href="{% static 'car/images/finalproject_favicon.ico' %}">
+        
+    <!-- 
+        <link rel="stylesheet" href="styles/normalize.css"> -->
+        <!-- <link rel="stylesheet" href="styles/final_base.css"> -->
+        <!-- <link rel="stylesheet" href="styles/final_medium.css"> -->
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'car/styles/final_base.css' %}">
+    <link rel="stylesheet" href="{% static 'car/styles/final_medium.css' %}">
+    <link rel="stylesheet" href="{% static 'car/styles/normalize.css' %}">
+
+
+
+    <!-- Images -->
+
+
+
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Caramel&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+
+
+    <!-- JS -->
+    <script src="{% static 'car/scripts/header_footer.js' %}" defer></script>
+
+    <script src="{% static 'car/scripts/inventory.js' %}" defer></script>
+        
+    </head>
+
+    <body>
+    <div class="menu-container">
+        <header>
+            <div class="left-section">
+                <!-- <img src="images/final_project_logo.svg" alt="Site Logo" width="60"> -->
+                <img src="{% static 'car/images/final_project_logo.svg' %}" alt="Site Logo">
+                <span class="site-title">Bahins Car Sales</span>
+            </div>
+
+        <nav id="nav-bar" class="navigation">
+        <ul>
+            <li >
+                <a href="{% url 'home' %}">HOME</a>
+            </li>
+            <li class="active-page">
+                <a href="{% url 'inventory' %}">INVENTORY</a>
+            </li>
+            <li>
+                <a href="{% url 'contact' %}">CONTACT US</a>
+            </li>
+        </ul>
+    </nav>
+
+            <button id="ham-btn" class="hamburger" aria-label="Open menu"></button>
+        </header>
+    </div>
+
+
+    <main>
+
+    <div class="featured-cars">
+        <h2>OUR TOP CHOICEST CARS</h2>
+
+        <div id="cars-container" class="grid">
+            
+            {% for car in cars %}
+            <div class="car-highlight car-card"
+                data-make="{{ car.make }}"
+                data-model="{{ car.model }}"
+                data-year="{{ car.year }}"
+                data-price="{{ car.price }}"
+                data-image="{{ car.image.url }}" 
+                data-description="{{ car.description }}" 
+                data-mileage="{{ car.mileage }}" 
+                data-fuel="{{ car.fuel }}"
+                data-transmission="{{ car.transmission }}"
+                data-color="{{ car.color }}"
+                data-bodytype="{{ car.bodyType }}">
+
+                <div class="car-image-container" style="position: relative;">
+                    <img class="car-photo car-image" 
+                        src="{{ car.image.url }}" 
+                        alt="{{ car.make }} {{ car.model }}"
+                        width="300" 
+                        height="200" 
+                        loading="lazy" 
+                        decoding="async">
+                    
+                    <button class="adv-btn"><strong>HIGHLIGHTS</strong></button>
+                </div>
+                
+                <div class="car-info">
+                    <span class="make"><strong>Make:</strong> {{ car.make }}</span>
+                    <span class="model"><strong>Model:</strong> {{ car.model }}</span>
+                    <span class="year"><strong>Year:</strong> {{ car.year }}</span>
+                    <span class="price"><strong>Price:</strong> ${{ car.price }}</span>
+                </div>
+            </div>
+            {% empty %}
+            <p>No cars are currently available in the inventory. Please check back later!</p>
+            {% endfor %}
+            
+        </div>
+        
+    </div>
+
+    <div class="inventory-cta">
+        <h1>Find Your Dream Car Today!</h1>
+        <p>Explore our premium selection and experience the ride of your life.</p>
+        <div class="test-drive-button">
+            <a href="{% url 'contact' %}" class="btn primary-btn">Schedule a Test Drive</a>
+    </div>
+    </div>
+
+
+    <dialog id="mydialog"></dialog>
+
+    </main>
+
+    
+        <footer>
+        
+
+            <div class="social">
+    <a href="https://github.com/bahintingchristopher/wdd231" target="_blank">
+        <img src="{% static 'car/images/github.svg' %}" alt="github" width="16" height="16">
+    </a>
+
+    <a href="https://www.linkedin.com/in/cbahinting" target="_blank">
+        <img src="{% static 'car/images/linkedin.svg' %}" alt="linkedin" width="16" height="16">
+    </a>
+
+    <a href="https://www.facebook.com/profile.php?id=61579616556378" target="_blank">
+        <img src="{% static 'car/images/facebook.svg' %}" alt="facebook" width="16" height="16">
+    </a>
+
+    <a href="https://x.com/" target="_blank">
+        <img src="{% static 'car/images/twitter-x.svg' %}" alt="twitter-x" width="16" height="16">
+    </a>
+    </div>
+
+
+            <div class="author">
+            <h2>WDD231 Class Project</h2>
+            <p> Christopher T. Bahinting <br>
+            &copy; <span id="currentYear"></span>  | Philippines
+            </p>
+            <p id="lastModified"></p>
+                    <!-- image "Attributions -->
+            <div class="attributions">
+            <h2>DISCLAIMER</h2>
+        <p>All images used in this project were found online. I do not own any of these images and they are used solely for educational purposes.</p>
+        <p>Credit to the original creators where known. This project is for learning and demonstration only.</p>
+        </div>
+        </div>
+    
+        
+        </footer>
+
+
+    </body>
+    </html>

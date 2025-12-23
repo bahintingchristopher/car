@@ -1,0 +1,193 @@
+:root {
+--background: #DCCDE8;
+--nav: #B37BA4;
+--mainbody: #00100B;
+--highlights: #D99AC5;
+--accent-CTA: #14BDEB;
+
+--font-headings: 'Cormorant Garamond', serif; 
+--font-body: 'Arimo', sans-serif;
+--site-name: 'Caramel', cursive;
+}
+
+body {
+background-color: var(--background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+color: var(--font-headings);
+}
+
+html, body, p, li, a, span, button {
+color: var(--mainbody); 
+}
+
+
+
+
+@media only screen and (min-width: 38rem) {
+
+.menu-container header {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+
+
+header {
+display: flex;
+align-items: center;
+justify-content: flex-start;  
+max-width: 100%;
+margin: 0 auto;
+padding: 0 16px;  
+}
+
+
+
+.left-section {
+display: flex;
+align-items: center;
+gap: 10px;  
+}
+
+.navigation {
+display: block;
+margin-left: auto;  
+}
+
+.navigation ul {
+display: flex;
+flex-direction: row;
+list-style: none;
+background-color: var(--background);
+gap: 40px;            
+margin: 0;
+padding: 0;
+}
+
+.navigation ul a {
+text-decoration: none;
+color: var(--mainbody);
+padding: 10px;
+display: block;
+border-bottom: none; 
+background-color: var(--background);
+}
+
+.navigation ul a:hover {
+color: var(--accent-CTA);
+background-color: var(--mainbody);
+border-radius: 10px;
+}
+
+.hamburger {
+display: none; 
+}
+
+
+/* HOME */
+.hero-box {
+position: relative;
+width: 100%;
+height: 80vh;           /* roughly half the viewport height */
+overflow: hidden;       /* hides bottom of image if cropped */
+}
+
+.hero-box img {
+width: 100%;
+height: 100px;    
+object-fit: cover; 
+object-position: top;
+display: block;
+}
+
+
+.cta {
+position: absolute;
+width: 70%;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: #14bceb4f;
+text-align: center;
+padding: 10px 20px;
+border-radius: 10px;
+}
+
+
+.cta h1 {
+font-size: 1.2rem;
+}
+
+
+
+.featured-cars h2 {
+text-align: center;
+margin-bottom: 20px;
+font-size: 2rem;
+
+
+}
+.featured-cars #cars-container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+}
+
+
+/* INVENTORY */
+.nventory-folder {
+display: grid;
+grid-template-columns: 1fr 1fr;
+}
+
+/* THANKYOU PAGE */
+.thankyou-folder {
+display: flex;
+text-align: left;
+font-size: 1.5rem;  
+}
+
+.left-thankyou {
+border: 2px solid var(--mainbody);
+margin-left: 25px;
+width: 50%;
+}
+
+.right-thankyou {
+margin-left: 25px;
+border: 2px solid var(--mainbody);
+width: 50%;
+margin-right: 25px;
+}
+
+
+.car-wrapper {
+position: relative;
+display: inline-block;
+}
+
+.headlight {
+position: absolute;
+top: 51%;    
+left: 39%;   
+width: 80px;
+height: 20px;
+background: radial-gradient(circle, rgba(255,255,200,0.8) 0%, rgba(255,255,200,0) 80%);
+border-radius: 50%;
+animation: flash 1s infinite alternate;
+}
+
+@keyframes flash {
+0% { opacity: 0; transform: scale(0.1); }
+50% { opacity: 2; transform: scale(1.2); }
+100% { opacity: 0; transform: scale(0.1); }
+}
+
+#results h2 {
+font-style: oblique;
+}
+
+}
