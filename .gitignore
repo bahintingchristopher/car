@@ -1,0 +1,14 @@
+# Python junk
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+
+# Database (Keep local, don't push to Render)
+db.sqlite3
+
+# DO NOT add media/ here if you want your car photos on GitHub
+# DO NOT add staticfiles/ here
