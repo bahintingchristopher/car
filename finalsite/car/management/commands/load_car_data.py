@@ -260,7 +260,7 @@ class Command(BaseCommand):
                 price=Decimal(data['price']), 
                 mileage=data['mileage'],
                 fuel=data['fuel'],
-                transmission=data['transmission'],
+                transmission=data['transmission']
                 color=data['color'],
                 bodyType=data['bodyType'],
                 image=relative_media_path, # <-- NOW USING THE CLEAN, MEDIA-READY PATH
@@ -269,9 +269,13 @@ class Command(BaseCommand):
             cars_to_create.append(car)
             
 
-        # 3. Save all objects to the database efficiently
+        # 3. Save all objects to the database efficiently 
         # This executes a single SQL query to insert all 15 records at once.
+        # Car.objects.bulk_create(cars_to_create)
+
+        # Save to database
         Car.objects.bulk_create(cars_to_create)
+        self.stdout.write(self.style.SUCCESS(f'Successfully loaded {len(cars_to_create)} cars.'))
 
         self.stdout.write(
             self.style.SUCCESS(f'Successfully loaded {len(cars_to_create)} cars into the database.')
