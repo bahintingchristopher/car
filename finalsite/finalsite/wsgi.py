@@ -23,3 +23,18 @@ User = get_user_model()
 # This creates a user named 'admin' with password 'password123' if it doesn't exist
 if not User.objects.filter(username='admin').exists():
     User.objects.create_superuser('admin', 'bahintingchristopher', 'Christoff12!')
+
+
+# import os
+# from django.contrib.auth import get_user_model
+
+# # Only run this if we are on Render
+# if os.environ.get('RENDER'):
+#     User = get_user_model()
+#     if not User.objects.filter(username='admin').exists():
+#         User.objects.create_superuser(
+#             username='admin',
+#             email='admin@example.com',
+#             password='YourSecretPassword123' # Change this to a real password!
+#         )
+#         print("Superuser 'admin' created successfully.")
