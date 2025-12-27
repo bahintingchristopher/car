@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 
 
@@ -23,8 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_y58)s&o(+jmxp_+zsd-x2!@$n7&49@54zkr7r7v23t8&88tj('
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-test-key-only')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
@@ -84,17 +86,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'finalsite.wsgi.application'
 
-
+# this is the older copy that will not save the previous changes (add/dellete)
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+#this is the new update that will save tne latest action(add/dellete)
+DATABASES = {
+    'default': dj_database_url.config(
+        # This will look for a variable named DATABASE_URL on Render
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

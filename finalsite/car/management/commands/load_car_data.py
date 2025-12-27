@@ -227,10 +227,16 @@ class Command(BaseCommand):
     # This 'help' text is what shows when you run 'python manage.py help load_car_data'
     help = 'Loads initial car inventory data from the embedded JSON structure into the database.'
 
+    # def handle(self, *args, **options):
+    #     # 1. Clear existing data (optional safety measure)
+    #     # We delete all existing cars to ensure a clean import every time this script runs.
+    #     Car.objects.all().delete()
+
     def handle(self, *args, **options):
-        # 1. Clear existing data (optional safety measure)
-        # We delete all existing cars to ensure a clean import every time this script runs.
-        Car.objects.all().delete()
+        # Check if we already have cars. If we do, don't do anything!
+        if Car.objects.exists():
+            self.stdout.write(self.style.WARNING('Database already has data. Skipping seed.'))
+            return
         
         cars_to_create = []
         
