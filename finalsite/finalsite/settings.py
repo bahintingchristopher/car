@@ -155,7 +155,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #this is for production and 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Required for Render/HTTPS login to work
+# Add this line to settings.py
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
