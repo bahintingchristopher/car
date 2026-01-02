@@ -87,7 +87,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'finalsite.wsgi.application'
 
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ 
 # this is the older copy that will not save the previous changes (add/dellete)
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -141,25 +141,25 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
+# ... (rest of your settings above)
 
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/' 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #this is for production and deployment
-#run this code so that the website not break: python manage.py collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-# Media files (Uploaded images)
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# MEDIA_ROOT = '/mnt/media'
-# MEDIA_URL = '/media/'
-
+# Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Add this line to settings.py
+# --- RENDER SPECIFIC SETTINGS ---
+# This tells Django it's behind a proxy (Render's Load Balancer)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
+
+# Ensure DEBUG is False in production
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
