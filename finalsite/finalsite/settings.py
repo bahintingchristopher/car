@@ -86,6 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'finalsite.wsgi.application'
 
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # this is the older copy that will not save the previous changes (add/dellete)
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
