@@ -260,7 +260,7 @@ class Command(BaseCommand):
                 price=Decimal(data['price']), 
                 mileage=data['mileage'],
                 fuel=data['fuel'],
-                transmission=data['transmission']
+                transmission=data['transmission'],
                 color=data['color'],
                 bodyType=data['bodyType'],
                 image=relative_media_path, # <-- NOW USING THE CLEAN, MEDIA-READY PATH
