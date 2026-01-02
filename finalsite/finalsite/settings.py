@@ -156,3 +156,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+# Add this so Render is trusted to handle login forms
+CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
