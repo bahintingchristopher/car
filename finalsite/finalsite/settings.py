@@ -155,6 +155,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #this is for production and 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
-# Add this so Render is trusted to handle login forms
+# Required for Render/HTTPS login to work
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
