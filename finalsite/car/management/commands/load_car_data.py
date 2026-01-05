@@ -534,15 +534,19 @@ class Command(BaseCommand):
                 description=data['description']
             )
 
-            # 3. THE UPLOAD STEP
-            if os.path.exists(image_local_path):
-                # OPEN the file and assign it to the field, then save the CAR object
-                with open(image_local_path, 'rb') as f: # Fixed variable name here
-                    car.image = File(f, name=filename)
-                    car.save() # This triggers the upload to Cloudinary
-                self.stdout.write(self.style.SUCCESS(f'✅ Uploaded to Cloudinary: {data["model"]}'))
-            else:
-                car.save()
-                self.stdout.write(self.style.ERROR(f'❌ File not found at: {image_local_path}'))
-
+                   # 3. THE UPLOAD STEP
+        if os.path.exists(image_local_path):
+            # Open the file
+            with open(image_local_path, 'rb') as f:
+                # Instead of car.image = File(f) -> car.save()
+                # We use car.image.save() which handles the upload and the DB update at once
+                django_file = File(f, name=filename)
+                
+                # save=True ensures the model instance is saved to the DB after the upload
+                car.image.save(filename, django_file, save=True)
+                
+            self.stdout.write(self.style.SUCCESS(f'✅ Uploaded to Cloudinary: {data["model"]}'))
+        else:
+            car.save() # Save without image if not found
+            self.stdout.write(self.style.ERROR(f'❌ File not found at: {image_local_path}'))
         self.stdout.write(self.style.SUCCESS('Finished! All images are now permanently in the cloud.'))
