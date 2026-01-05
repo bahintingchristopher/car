@@ -98,14 +98,21 @@ SESSION_COOKIE_SECURE = True   # Only sends session cookies over HTTPS
 CSRF_COOKIE_SECURE = True      # Only sends CSRF cookies over HTTPS
 CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com'] # Allows Render to submit forms
 
+
+
 # --- CLOUDINARY (PERMANENT IMAGE STORAGE) ---
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'), # From my Cloudinary Dashboard
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),     # From my Cloudinary Dashboard
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET') # From my Cloudinary Dashboard
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET')
 }
 
-# --- NEW STORAGE CONFIGURATION FOR DJANGO 6.0 ---
+# --- FIX FOR DJANGO 6.0 + CLOUDINARY STORAGE ---
+# These lines satisfy the Cloudinary library's old code requirements
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# This block satisfies Django 6.0's new storage requirements
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
