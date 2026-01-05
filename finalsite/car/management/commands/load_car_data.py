@@ -498,7 +498,7 @@ CAR_DATA_JSON = {
             "transmission": "Manual",
             "color": "Orange",
             "bodyType": "SUV",
-            "image": "eep_wrangler.webp",
+            "image": "Jeep_wrangler.webp",
             "description": "Iconic off-road SUV built for adventure with rugged styling and strong capability."
         }
     ]
