@@ -283,11 +283,11 @@
 
 # THIS IS THE NEW CODE WITH CLOUD STORAGE INTEGRATION
 import os
-from django.core.management.base import BaseCommand
-from car.models import Car 
 from decimal import Decimal
-from django.core.files import File  # This is the tool that "uploads" the file
-from django.conf import settings    # This helps find the GitHub folder
+from django.core.management.base import BaseCommand
+from django.core.files import File
+from django.conf import settings
+from car.models import Car
 
 CAR_DATA_JSON = {
     "cars": [
@@ -503,29 +503,28 @@ CAR_DATA_JSON = {
         }
     ]
 }
-
-
 class Command(BaseCommand):
-    help = 'Uploads images from GitHub static folder to Cloudinary'
+    help = 'Uploads images from GitHub static folder to Cloudinary and seeds the database'
 
     def handle(self, *args, **options):
-        # We delete old broken entries so we can start fresh with Cloudinary links
-        Car.objects.all().delete()
+        # 1. Clear existing data to avoid duplicates or broken links
         self.stdout.write(self.style.WARNING('Clearing old data...'))
+        Car.objects.all().delete()
         
         for data in CAR_DATA_JSON['cars']:
-            # 1. FIND THE IMAGE: This looks into your GitHub folder path
+            # 2. Construct the local path to the image
             filename = os.path.basename(data['image'])
+            # Ensure this path matches your folder structure exactly
             image_local_path = os.path.join(
                 settings.BASE_DIR, 'car', 'static', 'car', 'images', filename
             )
 
-            # 2. CREATE THE CAR (but don't save yet)
+            # 3. Instantiate the Car object (not saved to DB yet)
             car = Car(
                 make=data['make'],
                 model=data['model'],
                 year=data['year'],
-                price=Decimal(data['price']), 
+                price=Decimal(str(data['price'])), 
                 mileage=data['mileage'],
                 fuel=data['fuel'],
                 transmission=data['transmission'],
@@ -534,19 +533,19 @@ class Command(BaseCommand):
                 description=data['description']
             )
 
-                   # 3. THE UPLOAD STEP
-        if os.path.exists(image_local_path):
-            # Open the file
-            with open(image_local_path, 'rb') as f:
-                # Instead of car.image = File(f) -> car.save()
-                # We use car.image.save() which handles the upload and the DB update at once
-                django_file = File(f, name=filename)
+            # 4. Handle the Image Upload
+            if os.path.exists(image_local_path):
+                with open(image_local_path, 'rb') as f:
+                    # Wrapping the standard Python file in Django's File wrapper
+                    django_file = File(f, name=filename)
+                    
+                    # .save(save=True) uploads to Cloudinary AND saves the Car record
+                    car.image.save(filename, django_file, save=True)
                 
-                # save=True ensures the model instance is saved to the DB after the upload
-                car.image.save(filename, django_file, save=True)
-                
-            self.stdout.write(self.style.SUCCESS(f'✅ Uploaded to Cloudinary: {data["model"]}'))
-        else:
-            car.save() # Save without image if not found
-            self.stdout.write(self.style.ERROR(f'❌ File not found at: {image_local_path}'))
-        self.stdout.write(self.style.SUCCESS('Finished! All images are now permanently in the cloud.'))
+                self.stdout.write(self.style.SUCCESS(f'✅ Uploaded & Saved: {data["make"]} {data["model"]}'))
+            else:
+                # Save without an image if the file isn't found
+                car.save()
+                self.stdout.write(self.style.ERROR(f'❌ Image NOT found: {image_local_path}'))
+
+        self.stdout.write(self.style.SUCCESS('🚀 Process complete. All cars processed!'))
