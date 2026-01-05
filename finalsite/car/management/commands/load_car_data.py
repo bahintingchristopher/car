@@ -536,9 +536,10 @@ class Command(BaseCommand):
 
             # 3. THE UPLOAD STEP
             if os.path.exists(image_local_path):
-                with open(image_local_path, 'rb') as f:
-                    # This line sends the file to Cloudinary!
-                    car.image.save(filename, File(f), save=True)
+                # OPEN the file and assign it to the field, then save the CAR object
+                with open(image_local_path, 'rb') as f: # Fixed variable name here
+                    car.image = File(f, name=filename)
+                    car.save() # This triggers the upload to Cloudinary
                 self.stdout.write(self.style.SUCCESS(f'✅ Uploaded to Cloudinary: {data["model"]}'))
             else:
                 car.save()
