@@ -47,13 +47,15 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'car',
-    'django.contrib.admin', #this to connect admin py
-    'django.contrib.auth', #this is to connect admin py
+    'cloudinary_storage',
+    'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',  # <--- Make sure this is here!
+    'car',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +165,13 @@ CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
+
+# Cloudinary configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET')
+}
+
+# Tell Django to use Cloudinary for all Media files
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

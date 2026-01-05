@@ -4,6 +4,7 @@
 # car/models.py
 
 from django.db import models
+from cloudinary.models import CloudinaryField # Import CloudinaryField for image storage
 
 class Car(models.Model):
     # Core fields (from your HTML output)
@@ -23,7 +24,8 @@ class Car(models.Model):
     # Image path (The path starts with /static/...)
     # We use CharField here because we are only storing the path/URL string.
     # ...
-    image = models.ImageField(upload_to='cars/') # This is the change
+    # image = models.ImageField(upload_to='cars/') # This is the change
+    image = CloudinaryField('image', folder='cars/')  # Use CloudinaryField for image storage
     description = models.TextField()
     # ...
     # Optional but useful status flag
