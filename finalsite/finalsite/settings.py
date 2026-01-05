@@ -2,16 +2,16 @@ import os  # Standard Python tool to interact with the Operating System (folders
 from pathlib import Path  # Modern tool for handling file paths easily
 import dj_database_url  # Special tool to connect to Render's PostgreSQL database automatically
 
-# Calculates the main folder of your project so Django knows where to find everything
+# Calculates the main folder of my project so Django knows where to find everything
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# The "Password" for your website. It uses a secret key from Render or a fake one for testing
+# The "Password" for my website. It uses a secret key from Render or a fake one for testing
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-test-key-only')
 
 # Security: False means "Production Mode" (Safe); True means "Development Mode" (Shows errors)
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Lists which websites are allowed to display your app (Localhost for testing, Render for live)
+# Lists which websites are allowed to display my app (Localhost for testing, Render for live)
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
 
 # --- APPS LIST ---
@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',    # Handles pop-up "success/error" notifications
     'django.contrib.staticfiles', # Manages CSS and JavaScript files
     'cloudinary',                 # The base Cloudinary SDK (Must be here for image fields to work)
-    'car',                        # YOUR APP: where your cars and models are kept
+    'car',                        # my APP: where my cars and models are kept
 ]
 
 # --- SECURITY & UTILITY MIDDLEWARE ---
@@ -42,11 +42,11 @@ MIDDLEWARE = [
 # Tells Django where the main URL routes file is
 ROOT_URLCONF = 'finalsite.urls'
 
-# Configures how your HTML files are processed
+# Configures how my HTML files are processed
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],             # You can add extra folders for HTML here
+        'DIRS': [],             # can add extra folders for HTML here
         'APP_DIRS': True,       # Looks inside each app (like 'car') for a /templates/ folder
         'OPTIONS': {
             'context_processors': [
@@ -58,13 +58,13 @@ TEMPLATES = [
     },
 ]
 
-# Connects the web server (like Gunicorn) to your code
+# Connects the web server (like Gunicorn) to my code
 WSGI_APPLICATION = 'finalsite.wsgi.application'
 
 # --- THE DATABASE ---
 DATABASES = {
     'default': dj_database_url.config(
-        # Uses DATABASE_URL on Render (Postgres) or SQLite on your laptop
+        # Uses DATABASE_URL on Render (Postgres) or SQLite on our laptop
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600 # Keeps the connection open for speed
     )
@@ -100,10 +100,10 @@ CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com'] # Allows Render t
 
 # --- CLOUDINARY (PERMANENT IMAGE STORAGE) ---
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'), # From your Cloudinary Dashboard
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),     # From your Cloudinary Dashboard
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET') # From your Cloudinary Dashboard
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'), # From my Cloudinary Dashboard
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),     # From my Cloudinary Dashboard
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET') # From my Cloudinary Dashboard
 }
 
-# FORCES Django to send all image uploads to Cloudinary instead of your laptop
+# FORCES Django to send all image uploads to Cloudinary instead of my laptop
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
