@@ -9,7 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-test-key-only')
 
 # Security: False means "Production Mode" (Safe); True means "Development Mode" (Shows errors)
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+# DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # Lists which websites are allowed to display my app (Localhost for testing, Render for live)
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
@@ -93,11 +95,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # --- RENDER-SPECIFIC SECURITY ---
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # Fixes HTTPS issues on Render
-SESSION_COOKIE_SECURE = True   # Only sends session cookies over HTTPS
-CSRF_COOKIE_SECURE = True      # Only sends CSRF cookies over HTTPS
-CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com'] # Allows Render to submit forms
-
+# This logic checks computer (DEBUG=True) or on Render (DEBUG=False)
+if not DEBUG:  
+    # Settings for the LIVE site (Render)s
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
+else: 
+    # Settings  LOCAL computer (Testing)
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    # This allows to see the actual error instead of just "500"
+    ALLOWED_HOSTS = ['*']
 
 
 # --- CLOUDINARY (PERMANENT IMAGE STORAGE) ---

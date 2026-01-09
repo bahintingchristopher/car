@@ -83,7 +83,7 @@
     <!-- Test Drive Form -->
     <div class="test-drive-form-container">
       <!-- <form class="test-drive-form" method="get" action="thankyou.html"> -->
-      <form action="{% url 'thankyou' %}" method="get">
+      <form action="{% url 'thankyou' %}" method="POST">
       {% csrf_token %}
 
         <h1>Schedule a Test Drive</h1>

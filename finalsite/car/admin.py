@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Car # this to connect the admin py
+from .models import Car, TestDriveRequest # this to connect the admin py
 
 class CarAdmin(admin.ModelAdmin):
     # What fields to show in the list view (the main table)
@@ -47,3 +47,19 @@ admin.site.register(Car, CarAdmin)
 admin.site.site_header = "Bahins Car Sales Admin Directory"
 admin.site.site_title = "Bahins Car Sales Admin"
 admin.site.index_title = "Welcome to the Car Inventory Management"
+
+class TestDriveRequestAdmin(admin.ModelAdmin):
+    # This determines what you see in the admin list
+    list_display = ('full_name', 'vehicle_model', 'preferred_date', 'preferred_time', 'created_at')
+    
+    # Add filters to quickly see requests for specific dates or cars
+    list_filter = ('preferred_date', 'vehicle_model')
+    
+    # Allow searching by name or email
+    search_fields = ('full_name', 'email', 'vehicle_model')
+    
+    # Make the fields read-only so you don't accidentally change customer data
+    readonly_fields = ('created_at',)
+
+# Register the new model
+admin.site.register(TestDriveRequest, TestDriveRequestAdmin)
