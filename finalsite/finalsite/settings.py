@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-test-key-only')
 
 # Security: False means "Production Mode" (Safe); True means "Development Mode" (Shows errors)
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = False
 
 
 # Lists which websites are allowed to display my app (Localhost for testing, Render for live)
@@ -64,11 +64,10 @@ WSGI_APPLICATION = 'finalsite.wsgi.application'
 
 # --- THE DATABASE ---
 DATABASES = {
-    'default': dj_database_url.config(
-        # Uses DATABASE_URL on Render (Postgres) or SQLite on our laptop
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600 # Keeps the connection open for speed
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Standard security checks to make sure user passwords aren't too simple
@@ -93,21 +92,27 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Where CSS files go when de
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# --- RENDER-SPECIFIC SECURITY ---
-# This logic checks computer (DEBUG=True) or on Render (DEBUG=False)
-if not DEBUG:  
-    # Settings for the LIVE site (Render)s
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    CSRF_TRUSTED_ORIGINS = ['https://car-store-sfnj.onrender.com']
-else: 
-    # Settings  LOCAL computer (Testing)
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
-    # This allows to see the actual error instead of just "500"
-    ALLOWED_HOSTS = ['*']
-
+# --- STORAGE LOGIC: CLOUDINARY FOR LIVE, LOCAL FOR TESTING ---
+if not DEBUG:
+    # This runs on RENDER (Live Site)
+    STORAGES = {
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "cloudinary_storage.storage.StaticCloudinaryStorage",
+        },
+    }
+else:
+    
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
 
 # --- CLOUDINARY (PERMANENT IMAGE STORAGE) ---
 CLOUDINARY_STORAGE = {
@@ -116,17 +121,4 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET')
 }
 
-# --- FIX FOR DJANGO 6.0 + CLOUDINARY STORAGE ---
-# These lines satisfy the Cloudinary library's old code requirements
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# This block satisfies Django 6.0's new storage requirements
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "cloudinary_storage.storage.StaticCloudinaryStorage",
-    },
-}
+# --- THE END OF THE FILE ---
