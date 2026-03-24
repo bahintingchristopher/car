@@ -6,7 +6,7 @@ import dj_database_url  # Special tool to connect to Render's PostgreSQL databas
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # The "Password" for my website. It uses a secret key from Render or a fake one for testing
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-test-key-only')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-only-key')
 
 # Security: False means "Production Mode" (Safe); True means "Development Mode" (Shows errors)
 DEBUG = False
