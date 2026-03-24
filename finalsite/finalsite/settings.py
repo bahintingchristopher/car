@@ -13,7 +13,7 @@ DEBUG = False
 
 
 # Lists which websites are allowed to display my app (Localhost for testing, Render for live)
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'car-store-sfnj.onrender.com', 'bahinsCars.pythonanywhere.com']
 
 # --- APPS LIST ---
 INSTALLED_APPS = [
